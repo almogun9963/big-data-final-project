@@ -23,11 +23,15 @@ const genMessage = m => new Buffer.alloc(m.length,m);
 producer.on("ready", function(arg) {
   console.log(`producer Ariel is ready.`);
 });
-producer.connect();
+// producer.connect();
 
 module.exports.publish= function(msg)
 {   
-  m=JSON.stringify(msg);
-  producer.produce(topic, -1, genMessage(m), uuid.v4());  
+  // m=JSON.stringify(msg);
+  // setTimeout(() => { producer.produce(topic, -1, genMessage(msg), uuid.v4()); }, 1000);
+  producer.produce(topic, -1, genMessage(msg), uuid.v4());  
   //producer.disconnect();   
-}
+};
+producer.connect();
+
+// setTimeout(() => { producer.produce(topic, -1, genMessage("kbkjkk "), uuid.v4()); }, 2000);

@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const express = require('express');
 const app = express();
 var server = require('http').createServer(app);
@@ -18,15 +19,16 @@ app.use(express.static("public"));
 
 app.get('/', (req, res) => res.send("<a href='/send'>Send</a> <br/><a href=''>View</a>"));
 app.get('/send', (req, res) => res.render('sender'));
-
+// kafka.publish(" ");
 
 
 //------------ Socket.io ----------------
-io.on("connection", (socket) => {
-    console.log("new user connected");
-    socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting) });
-    socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg) });
-});
+module.exports.try = (msg) => {io.on("connection", (socket) => {
+    // console.log("new user connected");
+    // socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting); });
+    // socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg); });
+    socket.use(kafka.publish(msg));
+});}
 
 
 //------------------- kafka -----------
