@@ -11,7 +11,7 @@ module.exports.EventObj = class EventObj{
         this.day = day;
         this.time = time;
         this.is_special_day = is_special_day;
-        this.first_section = (first_section != -1)? first_section : this.first_section;
+        this.first_section = (first_section !== -1)? first_section : this.first_section;
     }
 
     getCarNumber(){
