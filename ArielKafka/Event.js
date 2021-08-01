@@ -56,8 +56,13 @@ module.exports.EventObj = class EventObj{
     setSection(section){
         this.section = section;
     }
+
     setTime(time){
         this.time = time;
+    }
+
+    setDay(day){
+        this.day = day;
     }
 
     toString(){

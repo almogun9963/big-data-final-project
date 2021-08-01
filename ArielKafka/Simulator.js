@@ -40,7 +40,9 @@ class Simulator{
         // let event = new EventObj.EventObj(car_num, enums.event_type.ROAD_ENTER, sec, dir, enums.day.SUN, time, false);
         let event = new EventObj.EventObj(car_num, enums.event_types.ROAD_ENTER, ran_num_section, ran_num_direction, ran_num_car_type, this.day, time, this.is_special, ran_num_section);
         this.sendEvent(event.toString());
-        setTimeout(() => { this.carRoute(event); }, 3000);
+        event.setEventKind(enums.event_types.SECTION_ENTER);
+        setTimeout(() => {this.sendEvent(event.toString());}, 100);
+        setTimeout(() => { this.carRoute(event); }, 20000);
     }
     carRoute(event){
         // while(true){
@@ -66,7 +68,7 @@ class Simulator{
         let random_num =  Math.floor(Math.random() * 10) + 1;
         if(random_num > 1){
             this.nextSection(event);
-            setTimeout(() => { this.carRoute(event); }, 3000);
+            setTimeout(() => { this.carRoute(event); }, 20000);
         }
         else{
             this.exit(event);
@@ -75,10 +77,10 @@ class Simulator{
 
     privateWay(event){
         let random_num =  Math.floor(Math.random() * 10) + 1;
-        if(Math.abs(event.getSection - event.getFirstSection()) < 2){
+        if(Math.abs(event.getSection() - event.getFirstSection()) < 2){
             if(random_num > 1){
                 this.nextSection(event);
-                setTimeout(() => { this.carRoute(event); }, 3000);
+                setTimeout(() => { this.carRoute(event); }, 20000);
             }
             else{
                 this.exit(event);
@@ -88,7 +90,7 @@ class Simulator{
             random_num =  Math.floor(Math.random() * 10) + 1;
             if(random_num <= 3){
                 this.nextSection(event);
-                setTimeout(() => { this.carRoute(event); }, 3000);
+                setTimeout(() => { this.carRoute(event); }, 20000);
             }
             else{
                 this.exit(event);
@@ -102,7 +104,7 @@ class Simulator{
         let random_num =  Math.floor(Math.random() * 10) + 1;
         if(random_num > 3){
             this.nextSection(event);
-            setTimeout(() => { this.carRoute(event); }, 3000);
+            setTimeout(() => { this.carRoute(event); }, 20000);
         }
         else{
             this.exit(event);
@@ -112,6 +114,7 @@ class Simulator{
     sendEvent(event_string){setTimeout(() => { kafka.publish(event_string); }, 400);}
 
     nextSection(event){
+        event.setDay(this.day);
         event.setEventKind(enums.event_types.SECTION_EXIT);
         let today = new Date();
         event.setTime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
@@ -124,6 +127,7 @@ class Simulator{
         // this.sendEvent(event.toString());
     }
     exit(event){
+        event.setDay(this.day);
         event.setEventKind(enums.event_types.SECTION_EXIT);
         let today = new Date();
         event.setTime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
@@ -145,7 +149,7 @@ class Simulator{
             else
                 this.is_special = false;
         } , 100000);
-        setInterval(() => {this.makeEvent();}, 10000); 
+        setInterval(() => {this.makeEvent();}, 3000); 
     }
 }
 // setTimeout(() => { kafka.publish(event.toString()); }, 300);
