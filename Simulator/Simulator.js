@@ -19,7 +19,7 @@ class Simulator{
         this.sendEvent(event.toString());
         event.setEventKind(enums.event_types.SECTION_ENTER);
         setTimeout(() => {this.sendEvent(event.toString());}, 100);
-        setTimeout(() => { this.carRoute(event); }, 20000);
+        setTimeout(() => { this.carRoute(event); }, 90000);
     }
     carRoute(event){
             if(event.getSection() === enums.sections.FIVE && event.getDirection() === enums.directions.WEST)
