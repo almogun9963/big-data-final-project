@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        </style>
+   <link rel="shortcut icon" href="./images/car.png"/>
+   <table id="example" class="table table-striped table-bordered dataTable" cellspacing="0" width="100%" style="text-align: center;",style="width:100%">
+        
+      <thead>
+          <tr>
+          <th scope="col">car number</th>
+          <th scope="col">car kind</th>
+          <th scope="col">section</th>
+          <th scope="col">event kind</th>
+          <th scope="col">day</th>
+          <th scope="col">time</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% for (var i = 0; i < object.length; i++) { %>
+              <tr>
+                    <td><%= object[i].car_number %></td>
+                    <td><%= object[i].car_kind%></td>
+                    <td><%= object[i].section %></td>
+                    <td><%= object[i].event_kind %></td>
+                    <td><%= object[i].day %></td>
+                    <td><%= object[i].time %></td>
+              </tr>    
+          <% } %>
+      </tbody>
+  </table>
+</html>
